@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/VNC_Question"
+        android:title="@string/Question"/>
+    <item
+        android:id="@+id/VNC_FileDown"
+        android:title="@string/FileDown"/>
+    <item
+        android:id="@+id/VNC_Pointer"
+        android:title="@string/Pointer"/>
+    <item
+        android:id="@+id/VNC_DisConnection"
+        android:title="@string/DisConnection"/>
+
+</menu>

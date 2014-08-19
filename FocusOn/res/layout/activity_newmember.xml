@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:float="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >        
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:id="@+id/member_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            float:fletFloatingHint="새 아이디 입력"
+            float:fletInputType="text" >
+
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <TextView 
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/member_id_check"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="ID중복체크"
+            android:textSize="17sp"
+         	android:textColor="#ffffff"
+         	android:layout_marginTop="15dp"
+         	android:layout_weight="2"
+           	android:background="#cc0ab9a8" />
+        
+         <TextView 
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
+    <com.wrapp.floatlabelededittext.FloatLabeledEditText
+        android:id="@+id/member_passwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        float:fletFloatingHint="새 비밀번호 입력"
+        float:fletInputType="textPassword"  />
+
+    <com.wrapp.floatlabelededittext.FloatLabeledEditText
+        android:id="@+id/member_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        float:fletFloatingHint="이름 입력"
+        float:fletInputType="textPersonName" />
+
+    <com.wrapp.floatlabelededittext.FloatLabeledEditText
+        android:id="@+id/member_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        float:fletFloatingHint="나이 입력"
+        float:fletInputType="number" />
+
+    <com.wrapp.floatlabelededittext.FloatLabeledEditText
+        android:id="@+id/member_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        float:fletFloatingHint="소속 입력"
+        float:fletInputType="text" />
+
+    <com.wrapp.floatlabelededittext.FloatLabeledEditText
+        android:id="@+id/member_mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        float:fletFloatingHint="e-mail 입력"
+        float:fletInputType="textEmailAddress" />
+
+    <com.wrapp.floatlabelededittext.FloatLabeledEditText
+        android:id="@+id/member_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        float:fletFloatingHint="핸드폰 번호 입력"
+        float:fletInputType="phone" />
+
+
+
+</LinearLayout>

@@ -1,0 +1,3 @@
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromYDelta="-90" android:toYDelta="-30" android:duration="14000"
+    android:interpolator="@anim/cycle_7" />

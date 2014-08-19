@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.one.Activity"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <permission
+        android:name="com.one.Activity.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.one.Activity.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <supports-screens android:anyDensity="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/focuson"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Focuson" >
+        <activity
+            android:name="com.one.dontmind.Multivnc.VncCanvasActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.HOME" />
+
+                <data android:scheme="vnc" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.one.dontmind.Multivnc.ConnectionListActivity"
+            android:label="@string/shortcut_label" >
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.one.dontmind.Multivnc.EditBookmarkActivity"
+            android:label="@string/editbookmark_title" >
+        </activity>
+        <activity
+            android:name="com.one.dontmind.Multivnc.AboutActivity"
+            android:label="@string/about" >
+        </activity>
+        <activity
+            android:name="com.one.dontmind.Multivnc.HelpActivity"
+            android:label="@string/help" >
+        </activity>
+        
+        <service
+            android:name="com.one.dontmind.Multivnc.MDNSService"
+            android:enabled="true" >
+        </service>
+
+        <activity
+            android:name="com.google.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        <activity
+            android:name="com.one.Activity.FocusActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.one.Activity.MessageContentActivity"
+            android:label="@string/messagesendActivity" >
+        </activity>
+        <activity android:name="com.one.Activity.NewsActivity" >
+        </activity>
+        <activity android:name="com.one.Activity.FacebookLoginActivity" >
+        </activity>
+        <activity android:name="com.one.Activity.FileDownActivity" >
+        </activity>
+        <activity android:name="com.one.Activity.GcmActivity" >
+        </activity>
+        <activity
+            android:name="com.facebook.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="IntroActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.one.Activity.NewMemberActivity" >
+        </activity>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <!-- GCMReceiver 추가 -->
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.one.Activity" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.one.Activity.GCMIntentService" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
+
+</manifest>

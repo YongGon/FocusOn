@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp" >
+
+        <ImageView
+            android:id="@+id/ext_icon"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/file_textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ext_icon"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/ext_icon"
+            android:text="TextView"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/file_textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/file_textView1"
+            android:layout_alignParentRight="true"
+            android:textSize="15dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/file_textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView1"
+            android:layout_alignParentRight="true"
+            android:text="TextView"
+            android:textSize="15dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
