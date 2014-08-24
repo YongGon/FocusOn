@@ -43,8 +43,15 @@ public class OptionFragment extends Fragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-	
 		
+		if(mSharedpreferencesUtil.getValue("push", "").equals("")){
+			
+			mPushSwitch.setChecked(false);
+			
+		}else{
+			mPushSwitch.setChecked(true);
+		}
+	
 		mPushSwitch.setOnClickListener(new OnClickListener() {
 			
 			@Override

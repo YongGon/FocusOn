@@ -132,7 +132,7 @@ public class MessageDialog extends Dialog {
 
 						// message 테이블에 추출정보 추가
 						sdb.execSQL("insert into message values('" + sendTitle + "', '" + sendValue 
-								+"', '" + sendDate + "', '" + sendDate2 + "');");
+								+"', '" + sendDate + "', '" + sendDate2 + "', " + null + ");");
 
 						// DB닫음
 						dbmgr.close();

@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -26,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -144,6 +146,7 @@ public class FacebookLoginActivity extends Activity{
 
 		mSharedpreferencesUtil.put(ACCESS_TOKEN, mSession.getAccessToken());
 		mSharedpreferencesUtil.put(FACEBOOK_ID, faceBookUser.getUserId());
+		mSharedpreferencesUtil.put("push", "on");
 
 		if(mSharedpreferencesUtil.getValue("KEY_CHECK", "").equals("")){
 			
@@ -182,7 +185,7 @@ public class FacebookLoginActivity extends Activity{
 						keySend_Check();
 						mSharedpreferencesUtil.put("KEY_CHECK", "true");
 					}
-
+					mSharedpreferencesUtil.put("push", "on");
 					onfocuslogin();
 				}
 			}
@@ -301,6 +304,11 @@ public class FacebookLoginActivity extends Activity{
 	}
 
 	public void onfocuslogin(){
+		
+		InputMethodManager imm = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);   
+		  
+		//키보드를 없앤다.   
+		imm.hideSoftInputFromWindow(mId.getWindowToken(),0);
 
 		requestQueue = Volley.newRequestQueue(FacebookLoginActivity.this);
 

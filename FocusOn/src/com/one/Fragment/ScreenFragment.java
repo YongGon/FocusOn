@@ -31,6 +31,7 @@ import android.widget.ListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.one.Activity.FocusActivity;
 import com.one.Activity.R;
 import com.one.Adapter.ScreenList_Adapter;
 import com.one.Entities.ScreenList_Item;
@@ -97,6 +98,7 @@ public class ScreenFragment extends Fragment{
 				Log.d(TAG, "Starting NEW connection " + conn.toString());
 				Intent intent = new Intent(getActivity(), com.one.dontmind.Multivnc.VncCanvasActivity.class);
 				intent.putExtra(Constants.CONNECTION,conn.Gen_getValues());
+				FocusActivity.OnOffFlug = false;
 				startActivity(intent);
 
 
@@ -324,7 +326,7 @@ public class ScreenFragment extends Fragment{
 			BufferedInputStream buf = null;
 
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(1350);
 
 				///// URL 지정과 접속 
 				// 웹서버 URL 지정 

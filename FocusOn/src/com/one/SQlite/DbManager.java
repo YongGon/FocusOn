@@ -17,7 +17,7 @@ public class DbManager extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// 테이블을 생성함(이미 생성된 경우는 생성되지 않음)
-		db.execSQL("create table message(sendTitle, sendValue, sendDate, sendDate2);");
+		db.execSQL("create table message(sendTitle, sendValue, sendDate, sendDate2, num INTEGER PRIMARY KEY AUTOINCREMENT);");
 	}
 	
 	// 존재하는 DB와 버전이 다른 경우

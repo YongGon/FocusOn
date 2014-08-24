@@ -60,25 +60,25 @@ public final class R {
 		public static final int indicator_right_padding = 0x7f070000;
 	}
 	public static final class drawable {
-		public static final int default_ptr_flip = 0x7f0200d1;
-		public static final int default_ptr_rotate = 0x7f0200d2;
-		public static final int indicator_arrow = 0x7f0200eb;
-		public static final int indicator_bg_bottom = 0x7f0200ec;
-		public static final int indicator_bg_top = 0x7f0200ed;
-		public static final int progress_bg_holo_light = 0x7f020117;
-		public static final int progress_horizontal_holo_light = 0x7f020119;
-		public static final int progress_horizontal_holo_light_right = 0x7f02011a;
-		public static final int progress_indeterminate_horizontal_holo = 0x7f02011b;
-		public static final int progress_primary_holo_light = 0x7f02011d;
-		public static final int progress_secondary_holo_light = 0x7f02011f;
-		public static final int progressbar_indeterminate_holo1 = 0x7f020120;
-		public static final int progressbar_indeterminate_holo2 = 0x7f020121;
-		public static final int progressbar_indeterminate_holo3 = 0x7f020122;
-		public static final int progressbar_indeterminate_holo4 = 0x7f020123;
-		public static final int progressbar_indeterminate_holo5 = 0x7f020124;
-		public static final int progressbar_indeterminate_holo6 = 0x7f020125;
-		public static final int progressbar_indeterminate_holo7 = 0x7f020126;
-		public static final int progressbar_indeterminate_holo8 = 0x7f020127;
+		public static final int default_ptr_flip = 0x7f0200d2;
+		public static final int default_ptr_rotate = 0x7f0200d3;
+		public static final int indicator_arrow = 0x7f0200ed;
+		public static final int indicator_bg_bottom = 0x7f0200ee;
+		public static final int indicator_bg_top = 0x7f0200ef;
+		public static final int progress_bg_holo_light = 0x7f020119;
+		public static final int progress_horizontal_holo_light = 0x7f02011b;
+		public static final int progress_horizontal_holo_light_right = 0x7f02011c;
+		public static final int progress_indeterminate_horizontal_holo = 0x7f02011d;
+		public static final int progress_primary_holo_light = 0x7f02011f;
+		public static final int progress_secondary_holo_light = 0x7f020121;
+		public static final int progressbar_indeterminate_holo1 = 0x7f020122;
+		public static final int progressbar_indeterminate_holo2 = 0x7f020123;
+		public static final int progressbar_indeterminate_holo3 = 0x7f020124;
+		public static final int progressbar_indeterminate_holo4 = 0x7f020125;
+		public static final int progressbar_indeterminate_holo5 = 0x7f020126;
+		public static final int progressbar_indeterminate_holo6 = 0x7f020127;
+		public static final int progressbar_indeterminate_holo7 = 0x7f020128;
+		public static final int progressbar_indeterminate_holo8 = 0x7f020129;
 	}
 	public static final class id {
 		public static final int both = 0x7f060003;

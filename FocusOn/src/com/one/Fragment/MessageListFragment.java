@@ -29,6 +29,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
+import com.one.Activity.FocusActivity;
 import com.one.Activity.MessageContentActivity;
 import com.one.Activity.R;
 import com.one.Adapter.MessageList_Adapter;
@@ -87,7 +88,7 @@ public class MessageListFragment extends Fragment {
 		try{
 			DbManager dbmgr = new DbManager(getActivity(), "messageListDB", null, 1 );
 			SQLiteDatabase sql = dbmgr.getReadableDatabase();
-			String select = "select * from message";
+			String select = "select * from message order by num desc";
 			Cursor cursor = sql.rawQuery(select, null);
 
 			while(cursor.moveToNext()){
@@ -124,6 +125,7 @@ public class MessageListFragment extends Fragment {
 				Intent intent = new Intent(getActivity(), MessageContentActivity.class);
 				intent.putExtra("Title", position_title);
 				intent.putExtra("Value", Position_value);
+				FocusActivity.OnOffFlug = false;
 				startActivity(intent);
 				getActivity().overridePendingTransition(R.anim.activity_in, R.anim.splash_out);
 

@@ -7,7 +7,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,6 +36,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -42,6 +53,7 @@ import com.one.util.SharedpreferencesUtil;
 
 public class FileDownActivity extends Activity {
 
+	protected static final String ACCESS_TOKEN = null;
 	PullToRefreshListView downList;
 	ArrayList<DownList_Item> downNames;
 	DownList_Adapter fileAdapter;
@@ -49,6 +61,7 @@ public class FileDownActivity extends Activity {
 	String Save_folder = "/FocusOnDownload";
 	SharedpreferencesUtil mSharedpreferencesUtil;
 	String fileURL;
+	private boolean OnOffFlug = true;
 
 
 	private long latestId = -1;
@@ -91,15 +104,17 @@ public class FileDownActivity extends Activity {
 	public void onResume() {
 		super.onResume();
 
+		UesrOn(FocusActivity.name);
+
 
 		downNames = new ArrayList<DownList_Item>();
 		fileAdapter = new DownList_Adapter(FileDownActivity.this, R.layout.activity_filedown_item, downNames);
-		
+
 		new loadJSP().execute();
 
 		IntentFilter completeFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
 		registerReceiver(completeReceiver, completeFilter); 
-		
+
 		downList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -143,8 +158,8 @@ public class FileDownActivity extends Activity {
 			}
 
 		});
-		
-		
+
+
 		downList.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
 			@Override
@@ -165,11 +180,23 @@ public class FileDownActivity extends Activity {
 
 
 	}
-	
+
 	public void onPause() {
 		super.onPause();
 		unregisterReceiver(completeReceiver);
 	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+
+		if(OnOffFlug){
+			UesrOff(FocusActivity.name);
+		}
+	}
+	
+	
 
 	public void showDownloadFile(String File_Name, String File_extend) {
 		Intent intent = new Intent();
@@ -231,21 +258,150 @@ public class FileDownActivity extends Activity {
 		alert.show();
 
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 
 		if(event.getAction() == KeyEvent.ACTION_DOWN){
 			switch(keyCode){
-				
+
 			case KeyEvent.KEYCODE_BACK:
+				OnOffFlug = false;
 				finish();
 				overridePendingTransition(R.anim.activity_in2, R.anim.activity_out);
 				return true;
 			}
 		}
 		return false;
+
+	}
+
+
+
+	public void UesrOn(String name){
+
+		RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+		StringRequest request = new StringRequest(Request.Method.POST, FocusActivity.webServer, new Response.Listener<String>() {
+
+			@Override
+			public void onResponse(String response) {
+				// TODO Auto-generated method stub
+
+				System.err.println(response);
+
+			}
+
+
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				// TODO Auto-generated method stub
+
+				VolleyLog.d("e", error.getMessage());
+
+			}
+
+		}){
+
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				// TODO Auto-generated method stub
+
+
+				Map<String, String> params = new Hashtable<String, String>();
+
+				if(!mSharedpreferencesUtil.getValue(ACCESS_TOKEN, "").equals("")){
+					params.put("name", mSharedpreferencesUtil.getValue("user_name", ""));
+					params.put("log", "on");
+				}else{
+					params.put("name", mSharedpreferencesUtil.getValue("focus_name", ""));
+					params.put("log", "on");
+				}
+
+				return params;
+			}
+
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// TODO Auto-generated method stub
+
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("Content-Type","application/x-www-form-urlencoded");
+
+				return params;
+
+			}
+
+		};
+
+		queue.add(request);
+
+	}
+
+	public void UesrOff(String name){
+
+		RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+		StringRequest request = new StringRequest(Request.Method.POST, FocusActivity.webServer, new Response.Listener<String>() {
+
+			@Override
+			public void onResponse(String response) {
+				// TODO Auto-generated method stub
+
+				System.err.println(response);
+
+			}
+
+
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				// TODO Auto-generated method stub
+
+				VolleyLog.d("e", error.getMessage());
+
+			}
+
+		}){
+
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				// TODO Auto-generated method stub
+
+
+				Map<String, String> params = new Hashtable<String, String>();
+
+				if(!mSharedpreferencesUtil.getValue(ACCESS_TOKEN, "").equals("")){
+					params.put("name", mSharedpreferencesUtil.getValue("user_name", ""));
+					params.put("log", "off");
+				}else{
+					params.put("name", mSharedpreferencesUtil.getValue("focus_name", ""));
+					params.put("log", "off");
+				}
+
+				return params;
+			}
+
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// TODO Auto-generated method stub
+
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("Content-Type","application/x-www-form-urlencoded");
+
+				return params;
+
+			}
+
+		};
+
+		queue.add(request);
 
 	}
 
@@ -341,7 +497,7 @@ public class FileDownActivity extends Activity {
 
 
 	}
-	
+
 	private class RefreshTask extends AsyncTask<Void, Void, ArrayList> {
 
 
@@ -352,7 +508,7 @@ public class FileDownActivity extends Activity {
 			BufferedInputStream buf = null;
 
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(1350);
 
 				// /// URL 지정과 접속
 				// 웹서버 URL 지정

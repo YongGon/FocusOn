@@ -87,7 +87,8 @@
         </activity>
         <activity android:name="com.one.Activity.NewsActivity" >
         </activity>
-        <activity android:name="com.one.Activity.FacebookLoginActivity" >
+        <activity android:name="com.one.Activity.FacebookLoginActivity" 
+            android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity android:name="com.one.Activity.FileDownActivity" >
         </activity>

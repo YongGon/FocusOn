@@ -54,15 +54,19 @@ public class FocusActivity extends FragmentActivity {
 	private static final String TAG 				=  "FocusActivity";
 	private static final String ERROR       		=  "error";
 
+	public static boolean OnOffFlug = true;
+	public static String name, webServer;
+
 	private MenuDrawer mDrawer;
 	private MenuAdapter mAdapter;
 	private ListView mList;
-	private String name, webServer;
 	private int mCurrentFragmentIndex, mFragmentCount = 0;
 	private SharedpreferencesUtil mSharedpreferencesUtil;
 	private Handler mHandler;
 	private boolean mBackbtnFlug = false;
 	private boolean mLogout = false;
+	private boolean flug = true;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -160,8 +164,18 @@ public class FocusActivity extends FragmentActivity {
 		});
 
 
-		UesrOn(name);
+	}
 
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();      
+		
+		UesrOn(name);
+		OnOffFlug = true;
+
+		Log.e("onResume", "호출");
 	}
 
 	public void fragmentReplace(int reqNewFragmentIndex) {
@@ -256,18 +270,18 @@ public class FocusActivity extends FragmentActivity {
 			return true;
 
 		case R.id.actionbar_logout:
-			
-			UserOff(name);
+
+			UesrOff(name);
 			Log.e("name", name.toString());
-			
+
 			mLogout = true;
-			
+
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
-			
+
 			try{
 				if(mSharedpreferencesUtil.getValue(ACCESS_TOKEN, "").equals("")){
 					mSharedpreferencesUtil.removePreferences(FOCUS_TOKEN);
@@ -275,7 +289,7 @@ public class FocusActivity extends FragmentActivity {
 				}else{
 					mSharedpreferencesUtil.removePreferences(ACCESS_TOKEN);
 					mSharedpreferencesUtil.removePreferences("user_id");
-//					mSharedpreferencesUtil.removePreferences("user_name");
+					//					mSharedpreferencesUtil.removePreferences("user_name");
 					callFacebookLogout(getApplicationContext());
 				}
 
@@ -294,13 +308,22 @@ public class FocusActivity extends FragmentActivity {
 	}
 
 	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+
+		if(!mLogout && OnOffFlug){
+			UesrOff(name);
+		}
+
+	}
+
+
+	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 
-		if(!mLogout){
-			UserOff(name);
-		}
 	}
 
 
@@ -308,20 +331,25 @@ public class FocusActivity extends FragmentActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) { // Back 버튼 두번 입력시 종료
 		super.onKeyDown(keyCode, event);
 
+
 		if(event.getAction() == KeyEvent.ACTION_DOWN){
 			switch(keyCode){
 
 			case KeyEvent.KEYCODE_BACK:
-				
-				if(mDrawer.isMenuVisible()){
-					
+
+
+
+				if(mDrawer.isMenuVisible() && flug){
+
 					mDrawer.toggleMenu();
+					flug = false;
 				}
 
 				else if(mFragmentCount > 0){
 
 					fragmentReplace(mSharedpreferencesUtil.getValue(String.format("%d", mFragmentCount-1), 0));
 					mFragmentCount--;
+					flug = true;
 
 				}else if(mFragmentCount == 0){
 					if(!mBackbtnFlug){
@@ -333,6 +361,7 @@ public class FocusActivity extends FragmentActivity {
 						finish();
 						return true;
 					}
+
 				}
 
 			}
@@ -404,7 +433,7 @@ public class FocusActivity extends FragmentActivity {
 
 	}
 
-	public void UserOff(String name){
+	public void UesrOff(String name){
 
 		RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 

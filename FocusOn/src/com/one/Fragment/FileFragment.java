@@ -27,6 +27,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 import com.one.Activity.FileDownActivity;
+import com.one.Activity.FocusActivity;
 import com.one.Activity.R;
 import com.one.Adapter.FileList_Adapter;
 import com.one.Entities.FileList_Item;
@@ -179,6 +180,7 @@ public class FileFragment extends Fragment {
 		// TODO Auto-generated method stub
 		
 		Intent intent = new Intent(getActivity(), FileDownActivity.class);
+		FocusActivity.OnOffFlug = false;
 		startActivity(intent);
 		getActivity().overridePendingTransition(R.anim.activity_in, R.anim.splash_out);
 		

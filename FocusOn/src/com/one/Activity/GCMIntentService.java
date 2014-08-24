@@ -58,8 +58,6 @@ public class GCMIntentService extends GCMBaseIntentService {
 		String contents = intent.getExtras().getString("contents");
 
 
-		Push_Thread p = new Push_Thread(mHandler, title ,contents);
-		p.start();
 
 		NotificationManager mNotificationManager = (NotificationManager)
 				this.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -71,7 +69,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 		Calendar c = Calendar.getInstance();
 		long today = c.getTimeInMillis();
 
-		long[] pattern = {1000,300};
+		long[] pattern = {1000,300,1000,1200};
 
 		Uri ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(getApplicationContext(),RingtoneManager.TYPE_NOTIFICATION);
 		AudioManager audioManager =  (AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -88,7 +86,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 			.setTicker(contents)
 			.setSound(ringtoneUri)
 			.setAutoCancel(true)
-			.setDefaults(Notification.DEFAULT_SOUND)
+//			.setDefaults(Notification.DEFAULT_SOUND)
 			.setContentText(contents);
 
 		}else{
@@ -111,6 +109,8 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 		if(!mSharedpreferencesUtil.getValue("push", "").equals("")){
 			mNotificationManager.notify(0, mBuilder.build());
+			Push_Thread p = new Push_Thread(mHandler, title ,contents);
+			p.start();
 		}else{
 			
 		}

@@ -22,7 +22,10 @@ package com.one.dontmind.Multivnc;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -58,7 +61,17 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.one.Activity.FocusActivity;
 import com.one.Activity.R;
+import com.one.util.SharedpreferencesUtil;
 
 @SuppressWarnings("deprecation")
 public class VncCanvasActivity extends Activity {
@@ -133,36 +146,36 @@ public class VncCanvasActivity extends Activity {
 			return sign * delta;
 		}
 
-//		private void twoFingerFlingNotification(String str)
-//		{
-//			// bzzt!
-//			vncCanvas.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY,
-//					HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING|HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
-//
-//			// beep!
-//			vncCanvas.playSoundEffect(SoundEffectConstants.CLICK);
-//
-//			VncCanvasActivity.this.notificationToast.setText(str);
-//			VncCanvasActivity.this.notificationToast.show();
-//		}
-//
-//		private void twoFingerFlingAction(Character d)
-//		{
-//			switch(d) {
-//			case 'b':
-//				vncCanvas.sendMetaKey(MetaKeyBean.keyArrowLeft);
-//				break;
-//			case 'c':
-//				vncCanvas.sendMetaKey(MetaKeyBean.keyArrowRight);
-//				break;
-//			case 'a':
-//				vncCanvas.sendMetaKey(MetaKeyBean.keyArrowUp);
-//				break;
-//			case 'd':
-//				vncCanvas.sendMetaKey(MetaKeyBean.keyArrowDown);
-//				break;
-//			}
-//		}
+		//		private void twoFingerFlingNotification(String str)
+		//		{
+		//			// bzzt!
+		//			vncCanvas.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY,
+		//					HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING|HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
+		//
+		//			// beep!
+		//			vncCanvas.playSoundEffect(SoundEffectConstants.CLICK);
+		//
+		//			VncCanvasActivity.this.notificationToast.setText(str);
+		//			VncCanvasActivity.this.notificationToast.show();
+		//		}
+		//
+		//		private void twoFingerFlingAction(Character d)
+		//		{
+		//			switch(d) {
+		//			case 'b':
+		//				vncCanvas.sendMetaKey(MetaKeyBean.keyArrowLeft);
+		//				break;
+		//			case 'c':
+		//				vncCanvas.sendMetaKey(MetaKeyBean.keyArrowRight);
+		//				break;
+		//			case 'a':
+		//				vncCanvas.sendMetaKey(MetaKeyBean.keyArrowUp);
+		//				break;
+		//			case 'd':
+		//				vncCanvas.sendMetaKey(MetaKeyBean.keyArrowDown);
+		//				break;
+		//			}
+		//		}
 
 
 		/*
@@ -170,26 +183,26 @@ public class VncCanvasActivity extends Activity {
 		 *
 		 * @see android.view.GestureDetector.SimpleOnGestureListener#onLongPress(android.view.MotionEvent)
 		 */
-//		@Override
-//		public void onLongPress(MotionEvent e) {
-//
-//			if (isTouchEvent(e) == false)
-//				return;
-//
-//			if(Utils.DEBUG()) Log.d(TAG, "Input: long press");
-//
-//			showZoomer(true);
-//
-//			vncCanvas.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS,
-//					HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING|HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
-//			dragMode = true;
-//			dragX = e.getX();
-//			dragY = e.getY();
-//
-//			// only interpret as button down if virtual mouse buttons are disabled
-//			if(mousebuttons.getVisibility() != View.VISIBLE)
-//				dragModeButtonDown = true;
-//		}
+		//		@Override
+		//		public void onLongPress(MotionEvent e) {
+		//
+		//			if (isTouchEvent(e) == false)
+		//				return;
+		//
+		//			if(Utils.DEBUG()) Log.d(TAG, "Input: long press");
+		//
+		//			showZoomer(true);
+		//
+		//			vncCanvas.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS,
+		//					HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING|HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
+		//			dragMode = true;
+		//			dragX = e.getX();
+		//			dragY = e.getY();
+		//
+		//			// only interpret as button down if virtual mouse buttons are disabled
+		//			if(mousebuttons.getVisibility() != View.VISIBLE)
+		//				dragModeButtonDown = true;
+		//		}
 
 		/*
 		 * (non-Javadoc)
@@ -248,13 +261,13 @@ public class VncCanvasActivity extends Activity {
 							&& Math.abs(velocityX) > Math.abs(2*velocityY)) {
 						if(velocityX < 0) {
 							if(Utils.DEBUG()) Log.d(TAG, "twoFingerFling LEFT detected");
-//							twoFingerFlingNotification("��");
-//							twoFingerFlingAction('b');
+							//							twoFingerFlingNotification("��");
+							//							twoFingerFlingAction('b');
 						}
 						else {
 							if(Utils.DEBUG()) Log.d(TAG, "twoFingerFling RIGHT detected");
-//							twoFingerFlingNotification("��");
-//							twoFingerFlingAction('b');
+							//							twoFingerFlingNotification("��");
+							//							twoFingerFlingAction('b');
 						}
 
 						twoFingerFlingDetected = true;
@@ -265,13 +278,13 @@ public class VncCanvasActivity extends Activity {
 							&& Math.abs(velocityY) > Math.abs(2*velocityX)) {
 						if(velocityY < 0) {
 							if(Utils.DEBUG()) Log.d(TAG, "twoFingerFling UP detected");
-//							twoFingerFlingNotification("��");
-//							twoFingerFlingAction('b');
+							//							twoFingerFlingNotification("��");
+							//							twoFingerFlingAction('b');
 						}
 						else {
 							if(Utils.DEBUG()) Log.d(TAG, "twoFingerFling DOWN detected");
-//							twoFingerFlingNotification("��");
-//							twoFingerFlingAction('b');
+							//							twoFingerFlingNotification("��");
+							//							twoFingerFlingAction('b');
 						}
 
 						twoFingerFlingDetected = true;
@@ -465,8 +478,8 @@ public class VncCanvasActivity extends Activity {
 				return false;
 
 			// disable if virtual mouse buttons are in use
-//			if(mousebuttons.getVisibility()== View.VISIBLE)
-//				return false;
+			//			if(mousebuttons.getVisibility()== View.VISIBLE)
+			//				return false;
 
 			if(Utils.DEBUG()) Log.d(TAG, "Input: single tap");
 
@@ -490,8 +503,8 @@ public class VncCanvasActivity extends Activity {
 				return false;
 
 			// disable if virtual mouse buttons are in use
-//			if(mousebuttons.getVisibility()== View.VISIBLE)
-//				return false;
+			//			if(mousebuttons.getVisibility()== View.VISIBLE)
+			//				return false;
 
 			if(Utils.DEBUG()) Log.d(TAG, "Input: double tap");
 
@@ -520,7 +533,7 @@ public class VncCanvasActivity extends Activity {
 	}
 
 	private final static String TAG = "VncCanvasActivity";
-
+	private static final String ACCESS_TOKEN  	 	=  "ACCESS_TOKEN";
 
 	VncCanvas vncCanvas;
 	VncDatabase database;
@@ -536,6 +549,8 @@ public class VncCanvasActivity extends Activity {
 	private SharedPreferences prefs;
 
 	private ClipboardManager mClipboardManager;
+	private SharedpreferencesUtil mSharedpreferencesUtil;
+	private boolean OnOffFlug = true;
 
 	@SuppressLint("ShowToast")
 	@Override
@@ -543,10 +558,12 @@ public class VncCanvasActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
+		mSharedpreferencesUtil = new SharedpreferencesUtil(getApplicationContext());
+
 		// hide or show actionbar, title bar, status bar
 		setupWindowSize();
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.canvas);
 
 		vncCanvas = (VncCanvas) findViewById(R.id.vnc_canvas);
@@ -702,17 +719,17 @@ public class VncCanvasActivity extends Activity {
 			}
 
 		});
-//
-//		mousebuttons = (ViewGroup) findViewById(R.id.virtualmousebuttons);
-//		MouseButtonView mousebutton1 = (MouseButtonView) findViewById(R.id.mousebutton1);
-//		MouseButtonView mousebutton2 = (MouseButtonView) findViewById(R.id.mousebutton2);
-//		MouseButtonView mousebutton3 = (MouseButtonView) findViewById(R.id.mousebutton3);
-//
-//		mousebutton1.init(1, vncCanvas);
-//		mousebutton2.init(2, vncCanvas);
-//		mousebutton3.init(3, vncCanvas);
-//		if(! prefs.getBoolean(Constants.PREFS_KEY_MOUSEBUTTONS, true))
-//			mousebuttons.setVisibility(View.GONE);
+		//
+		//		mousebuttons = (ViewGroup) findViewById(R.id.virtualmousebuttons);
+		//		MouseButtonView mousebutton1 = (MouseButtonView) findViewById(R.id.mousebutton1);
+		//		MouseButtonView mousebutton2 = (MouseButtonView) findViewById(R.id.mousebutton2);
+		//		MouseButtonView mousebutton3 = (MouseButtonView) findViewById(R.id.mousebutton3);
+		//
+		//		mousebutton1.init(1, vncCanvas);
+		//		mousebutton2.init(2, vncCanvas);
+		//		mousebutton3.init(3, vncCanvas);
+		//		if(! prefs.getBoolean(Constants.PREFS_KEY_MOUSEBUTTONS, true))
+		//			mousebuttons.setVisibility(View.GONE);
 
 		touchpoints = (TouchPointView) findViewById(R.id.touchpoints);
 		touchpoints.setInputHandler(inputHandler);
@@ -729,27 +746,27 @@ public class VncCanvasActivity extends Activity {
 		/*
 		 * ask whether to show help on first run
 		 */
-//		if(Utils.appstarts == 1) {
-//			new AlertDialog.Builder(this)
-//			.setMessage(R.string.firstrun_help_dialog_text)
-//			.setTitle(R.string.firstrun_help_dialog_title)
-//			.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//				public void onClick(DialogInterface dialog, int id) {
-//					Intent helpIntent = new Intent (VncCanvasActivity.this, HelpActivity.class);
-//					VncCanvasActivity.this.startActivity(helpIntent);
-//				}
-//			})
-//			.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-//				public void onClick(DialogInterface dialog, int id) {
-//					try {
-//						dialog.dismiss();
-//					}
-//					catch(Exception e) {
-//					}
-//				}
-//			})
-//			.show();
-//		}
+		//		if(Utils.appstarts == 1) {
+		//			new AlertDialog.Builder(this)
+		//			.setMessage(R.string.firstrun_help_dialog_text)
+		//			.setTitle(R.string.firstrun_help_dialog_title)
+		//			.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+		//				public void onClick(DialogInterface dialog, int id) {
+		//					Intent helpIntent = new Intent (VncCanvasActivity.this, HelpActivity.class);
+		//					VncCanvasActivity.this.startActivity(helpIntent);
+		//				}
+		//			})
+		//			.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+		//				public void onClick(DialogInterface dialog, int id) {
+		//					try {
+		//						dialog.dismiss();
+		//					}
+		//					catch(Exception e) {
+		//					}
+		//				}
+		//			})
+		//			.show();
+		//		}
 
 	}
 
@@ -796,9 +813,15 @@ public class VncCanvasActivity extends Activity {
 
 	@Override
 	protected void onStop() {
+
+		if(OnOffFlug){
+			UesrOff(FocusActivity.name);
+		}
 		vncCanvas.disableRepaints();
 		super.onStop();
 	}
+	
+	
 
 	@Override
 	protected void onRestart() {
@@ -822,6 +845,9 @@ public class VncCanvasActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		// needed for the GLSurfaceView
+
+		UesrOn(FocusActivity.name);
+
 		vncCanvas.onResume();
 
 		// get Android clipboard contents
@@ -833,7 +859,7 @@ public class VncCanvasActivity extends Activity {
 	@SuppressLint("NewApi")
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		
+
 		getMenuInflater().inflate(R.menu.activity_vnccanvas, menu);
 
 		return true;
@@ -854,13 +880,13 @@ public class VncCanvasActivity extends Activity {
 		switch (item.getItemId()) {
 
 		case R.id.VNC_Question:
-			
+
 			MessageDialog message = new MessageDialog(VncCanvasActivity.this);
 			message.show();
 			return true;
-			
+
 		case R.id.VNC_FileDown:
-			
+
 			FileDownDialog file = new FileDownDialog(VncCanvasActivity.this);
 			file.show();
 			return true;
@@ -915,7 +941,7 @@ public class VncCanvasActivity extends Activity {
 			catch(NullPointerException e) {
 			}
 		}
-		
+
 	}
 
 
@@ -936,6 +962,7 @@ public class VncCanvasActivity extends Activity {
 				.setPositiveButton(getString(android.R.string.yes), new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						vncCanvas.vncConn.shutdown();
+						OnOffFlug = false;
 						finish();
 					}
 				}).setNegativeButton(getString(android.R.string.no), new DialogInterface.OnClickListener() {
@@ -1026,6 +1053,11 @@ public class VncCanvasActivity extends Activity {
 
 	long hideZoomAfterMs;
 	static final long ZOOM_HIDE_DELAY_MS = 2500;
+
+
+	protected static final String ERROR = null;
+
+
 	HideZoomRunnable hideZoomInstance = new HideZoomRunnable();
 
 	private void showZoomer(boolean force) {
@@ -1092,5 +1124,133 @@ public class VncCanvasActivity extends Activity {
 			invalidateOptionsMenu();
 		}
 	}
+
+
+	public void UesrOn(String name){
+
+		RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+		StringRequest request = new StringRequest(Request.Method.POST, FocusActivity.webServer, new Response.Listener<String>() {
+
+			@Override
+			public void onResponse(String response) {
+				// TODO Auto-generated method stub
+
+				System.err.println(response);
+
+			}
+
+
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				// TODO Auto-generated method stub
+
+				VolleyLog.d(ERROR, error.getMessage());
+
+			}
+
+		}){
+
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				// TODO Auto-generated method stub
+
+
+				Map<String, String> params = new Hashtable<String, String>();
+
+				if(!mSharedpreferencesUtil.getValue(ACCESS_TOKEN, "").equals("")){
+					params.put("name", mSharedpreferencesUtil.getValue("user_name", ""));
+					params.put("log", "on");
+				}else{
+					params.put("name", mSharedpreferencesUtil.getValue("focus_name", ""));
+					params.put("log", "on");
+				}
+
+				return params;
+			}
+
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// TODO Auto-generated method stub
+
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("Content-Type","application/x-www-form-urlencoded");
+
+				return params;
+
+			}
+
+		};
+
+		queue.add(request);
+
+	}
+
+	public void UesrOff(String name){
+
+		RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+		StringRequest request = new StringRequest(Request.Method.POST, FocusActivity.webServer, new Response.Listener<String>() {
+
+			@Override
+			public void onResponse(String response) {
+				// TODO Auto-generated method stub
+
+				System.err.println(response);
+
+			}
+
+
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				// TODO Auto-generated method stub
+
+				VolleyLog.d(ERROR, error.getMessage());
+
+			}
+
+		}){
+
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				// TODO Auto-generated method stub
+
+
+				Map<String, String> params = new Hashtable<String, String>();
+
+				if(!mSharedpreferencesUtil.getValue(ACCESS_TOKEN, "").equals("")){
+					params.put("name", mSharedpreferencesUtil.getValue("user_name", ""));
+					params.put("log", "off");
+				}else{
+					params.put("name", mSharedpreferencesUtil.getValue("focus_name", ""));
+					params.put("log", "off");
+				}
+
+				return params;
+			}
+
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// TODO Auto-generated method stub
+
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("Content-Type","application/x-www-form-urlencoded");
+
+				return params;
+
+			}
+
+		};
+
+		queue.add(request);
+
+	}
+
 
 }

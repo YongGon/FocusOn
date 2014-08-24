@@ -31,12 +31,12 @@ public class IntroActivity extends Activity{
 
 	private void dataInit() {
 		sharedpreferencesUtil = new SharedpreferencesUtil(getApplicationContext());
-		sharedpreferencesUtil.put("WEB", "http://192.168.0.98:8080/");
+		sharedpreferencesUtil.put("WEB", "http://192.168.0.2:8080/");
 	}
 
 	@Override
 	public void onBackPressed() {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stubㅊ
 		super.onBackPressed();
 
 		mhd.removeCallbacks(mRunnuable); // back버튼 누르면 핸들러 종료

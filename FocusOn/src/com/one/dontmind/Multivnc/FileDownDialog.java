@@ -341,7 +341,7 @@ public class FileDownDialog  extends Dialog{
 			BufferedInputStream buf = null;
 
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(1350);
 
 				// /// URL 지정과 접속
 				// 웹서버 URL 지정

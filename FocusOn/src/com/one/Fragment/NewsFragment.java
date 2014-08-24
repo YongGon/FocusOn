@@ -29,6 +29,7 @@ import android.widget.ListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.one.Activity.FocusActivity;
 import com.one.Activity.NewsActivity;
 import com.one.Activity.R;
 import com.one.Adapter.NewsList_Adapter;
@@ -76,7 +77,7 @@ public class NewsFragment extends Fragment {
 				intent.putExtra("title", mNewsArray.get(position-1).text1);
 				intent.putExtra("writer", mNewsArray.get(position-1).text2);
 				intent.putExtra("content", mNewsArray.get(position-1).text3);
-
+				FocusActivity.OnOffFlug = false;
 
 				startActivity(intent);
 				getActivity().overridePendingTransition(R.anim.activity_in, R.anim.splash_out);
@@ -225,7 +226,7 @@ public class NewsFragment extends Fragment {
 			BufferedInputStream buf = null;
 
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(1350);
 
 				///// URL 지정과 접속 
 				// 웹서버 URL 지정 
